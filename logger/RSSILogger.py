@@ -21,10 +21,10 @@ def getNetworkAccessPoints(NetworkName):
     for AccessPoint in AccessPointData:
         if AccessPoint['ssid'] == NetworkName:
             dbmQuality = (AccessPoint['quality'] / 2) - 100
-            AccessPointString = "%s,%s\n" % (AccessPoint['bssid'].upper(), dbmQuality)
+            AccessPointString = "%s,%s,%s\n" % (time.time(), AccessPoint['bssid'].upper(), dbmQuality)
             AccessPoints.append(AccessPointString)
-            print "Signal Strength = %s, Quality Percentage = %s and MAC Address = %s" % \
-                  (dbmQuality, AccessPoint['quality'], AccessPoint['bssid'])
+            print "Signal Strength = %s, Quality Percentage = %s, Time Stamp = %s and MAC Address = %s" % \
+                  (dbmQuality, AccessPoint['quality'], time.time(), AccessPoint['bssid'])
     with open(LogFileName, "a") as file:
         file.write(AccessPointString)
 
