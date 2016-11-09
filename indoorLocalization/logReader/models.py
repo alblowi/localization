@@ -9,8 +9,9 @@ class systemLogs(models.Model):
     SysLogFloorIDFK = models.ForeignKey(Floors, blank=True, null=True)
     SysLogMACAddress = models.CharField(max_length=30, blank=True)
     SysLogRSSI = models.CharField(max_length=10, blank=False)
-    SysLogLongitude = models.CharField(max_length=50, blank=True)
-    SysLogLatitude = models.CharField(max_length=50, blank=True)
+    SysLogLongitude = models.CharField(max_length=50, blank=True, null=True)
+    SysLogLatitude = models.CharField(max_length=50, blank=True, null=True)
+    SysLogTimestamp = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name
