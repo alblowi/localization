@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf.urls import url, include
+from rest_framework.authtoken.views import obtain_auth_token
+from logReader.urls import LogReaderRouter
+from buildingManager.urls import BuildingManagerRouter
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^api/token/', obtain_auth_token, name='api-token'),
+    url(r'api/', include(BuildingManagerRouter.urls)),
+    url(r'api/', include(LogReaderRouter.urls))
 ]

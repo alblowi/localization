@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Buildings, Campuses, Floors, PointOfInterests
 
-# Register your models here.
+
+admin.site.register(Campuses)
+admin.site.register(Buildings)
+admin.site.register(Floors)
+admin.site.register(PointOfInterests)
