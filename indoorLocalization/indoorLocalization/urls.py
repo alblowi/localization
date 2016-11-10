@@ -19,10 +19,11 @@ from django.conf.urls import url, include
 from rest_framework.authtoken.views import obtain_auth_token
 from logReader.urls import LogReaderRouter
 from buildingManager.urls import BuildingManagerRouter
+from logParser.urls import LogParserRouter
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/token/', obtain_auth_token, name='api-token'),
-    url(r'api/', include(BuildingManagerRouter.urls)),
-    url(r'api/', include(LogReaderRouter.urls))
+    url(r'api/v1/building_manager/', include(BuildingManagerRouter.urls)),
+    url(r'api/v1/parser/', include(LogParserRouter.urls))
 ]
