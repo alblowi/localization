@@ -17,13 +17,21 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import url, include
 from rest_framework.authtoken.views import obtain_auth_token
-from logReader.urls import LogReaderRouter
-from buildingManager.urls import BuildingManagerRouter
-from logParser.urls import LogParserRouter
+from rest_framework.routers import DefaultRouter
+from buildingManager.views import campusesViewSet, buildingViewSet, floorsViewSet, POIViewSet
+from logParser.views import LogParserViewSet
+from logReader.views import systemLogViewSet
+
+Router = DefaultRouter()
+Router.register('campuses', campusesViewSet)
+Router.register('buildings', buildingViewSet)
+Router.register('floors', floorsViewSet)
+Router.register('poi', POIViewSet)
+Router.register('parser', LogParserViewSet)
+Router.register('reader', systemLogViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/token/', obtain_auth_token, name='api-token'),
-    url(r'api/v1/building_manager/', include(BuildingManagerRouter.urls)),
-    url(r'api/v1/parser/', include(LogParserRouter.urls))
+    url(r'api/v1/', include(Router.urls)),
 ]
