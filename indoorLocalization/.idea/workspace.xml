@@ -134,6 +134,7 @@
         <option value="$PROJECT_DIR$/buildingManager/serializers.py" />
         <option value="$PROJECT_DIR$/indoorLocalization/settings.py" />
         <option value="$PROJECT_DIR$/indoorLocalization/wsgi.py" />
+        <option value="$PROJECT_DIR$/Procfile" />
       </list>
     </option>
   </component>
@@ -823,6 +824,14 @@
           <folding>
             <element signature="e#322#331#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="46" selection-start-line="0" selection-start-column="46" selection-end-line="0" selection-end-column="46" />
+          <folding />
         </state>
       </provider>
     </entry>
