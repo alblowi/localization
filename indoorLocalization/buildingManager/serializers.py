@@ -5,12 +5,13 @@ from rest_framework.reverse import reverse
 
 User = get_user_model()
 
-class CampusesSerializer(serializers.ModelSerializer):
+class CampusesSerializer(serializers.HyperlinkedModelSerializer):
     links = serializers.SerializerMethodField()
+    buildings = serializers.HyperlinkedRelatedField(view_name='buildings-detail', many=True, read_only=True)
     class Meta:
         model = Campuses
         fields = ('CampusID', 'CampusName', 'CampusAlias', 'CampusAddress', 'CampusLongitude', 'CampusLatitude',
-                  'Active', 'links')
+                  'Active', 'links', 'buildings')
 
     def get_links(self, obj):
         request = self.context['request']
@@ -20,12 +21,14 @@ class CampusesSerializer(serializers.ModelSerializer):
 
 class BuildingsSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()
-    Campuses = CampusesSerializer
+    # Campuses = CampusesSerializer
+    floors = serializers.HyperlinkedRelatedField(view_name='floors-detail', many=True, read_only=True)
+    CampusIDFK = serializers.PrimaryKeyRelatedField(queryset=Campuses.objects.all())
 
     class Meta:
         model = Buildings
         fields = ('BuildingID', 'CampusIDFK', 'BuildingName', 'BuildingAlias', 'BuildingAddress', 'BuildingLongitude',
-                  'BuildingLatitude', 'Active', 'links')
+                  'BuildingLatitude', 'Active', 'links', 'floors')
 
     def get_links(self, obj):
         request = self.context['request']
@@ -35,11 +38,12 @@ class BuildingsSerializer(serializers.ModelSerializer):
 
 class FloorSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()
-    Buildings = BuildingsSerializer
+    poi = serializers.HyperlinkedRelatedField(view_name='pointofinterests-detail', many=True, read_only=True)
+    BuildingIDFK = serializers.PrimaryKeyRelatedField(queryset=Buildings.objects.all())
 
     class Meta:
         model = Floors
-        fields = ('FloorID', 'BuildingIDFK', 'FloorNumber', 'FloorMAP', 'FloorAlias', 'links', 'credit')
+        fields = ('FloorID', 'BuildingIDFK', 'FloorNumber', 'FloorMAP', 'FloorAlias', 'links', 'poi')
 
     def get_links(self, obj):
         request = self.context['request']
@@ -51,7 +55,8 @@ class FloorSerializer(serializers.ModelSerializer):
 
 class POISerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField()
-    Floors = FloorSerializer
+    # Floors = FloorSerializer
+    FloorIDFK = serializers.PrimaryKeyRelatedField(queryset=Floors.objects.all())
 
     class Meta:
         model = PointOfInterests

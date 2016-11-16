@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 class Campuses(models.Model):
     CampusID = models.AutoField(primary_key=True)
     CampusName = models.CharField(max_length=255, blank=False)
@@ -14,9 +15,10 @@ class Campuses(models.Model):
     def __str__(self):
         return self.CampusName
 
+
 class Buildings(models.Model):
     BuildingID = models.AutoField(primary_key=True)
-    CampusIDFK = models.ForeignKey(Campuses, blank=False, null=False)
+    CampusIDFK = models.ForeignKey(Campuses, related_name='buildings')
     BuildingName = models.CharField(max_length=255, blank=False)
     BuildingAlias = models.CharField(max_length=255, blank=True)
     BuildingAddress = models.CharField(max_length=255, blank=False)
@@ -27,19 +29,21 @@ class Buildings(models.Model):
     def __str__(self):
         return self.BuildingName
 
+
 class Floors(models.Model):
     FloorID = models.AutoField(primary_key=True)
-    BuildingIDFK = models.ForeignKey(Buildings, blank=False, null=False)
+    BuildingIDFK = models.ForeignKey(Buildings, related_name='floors')
     FloorNumber = models.CharField(max_length=30, blank=False)
-    FloorMAP = models.CharField(max_length=30, blank=True)
+    FloorMAP = models.FileField(upload_to="./buildingManager/maps/")
     FloorAlias = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return self.FloorNumber
 
+
 class PointOfInterests(models.Model):
     POIID = models.AutoField(primary_key=True)
-    FloorIDFK = models.ForeignKey(Floors, blank=False, null=False)
+    FloorIDFK = models.ForeignKey(Floors, related_name='poi')
     POIAlias = models.CharField(max_length=255, blank=True)
     POILongitude = models.CharField(max_length=50, blank=True)
     POILatitude = models.CharField(max_length=50, blank=True)
