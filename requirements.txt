@@ -1,6 +1,7 @@
 access-points==0.2.45
 Django==1.10.3
 djangorestframework==3.5.3
+gunicorn==19.6.0
 MySQL-python==1.2.5
 psycopg2==2.6.2
 wireless==0.3.2
